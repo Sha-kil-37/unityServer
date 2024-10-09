@@ -2,13 +2,21 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const { validationResult } = require("express-validator");
 const userRouter = require("../router/userRouter");
+const notFoundRouter = require("../router/notFoundRouter");
+const employeeRouter = require("../router/employeeRouter");
+const suplayerRouter = require("../router/suplayerRoter");
+const buyerRouter = require("../router/buyerRouter");
+const morgan = require("morgan");
+const expenseTypeRouter = require("../router/expenseTypeRouter");
+//
+app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cors());
 app.use("/unity/api/v1", userRouter);
-
-
-
-
+app.use("/unity/api/v1", notFoundRouter);
+app.use("/unity/api/v1", employeeRouter);
+app.use("/unity/api/v1", suplayerRouter);
+app.use("/unity/api/v1", buyerRouter);
+app.use("/unity/api/v1", expenseTypeRouter);
 module.exports = app;

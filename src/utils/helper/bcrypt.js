@@ -9,9 +9,12 @@ async function hashPassword(password) {
 }
 // compare password
 async function comparePassword(password, email, model) {
-  const hashPassword = await model.findOne({
-    email: email,
-  });
+  const hashPassword = await model.findOne(
+    {
+      email: email,
+    },
+    { _id: 0, name: 0, email: 0 }
+  );
   if (hashPassword === null) {
     return "invalid email";
   } else {

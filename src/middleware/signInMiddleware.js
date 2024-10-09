@@ -1,9 +1,9 @@
 const { validationResult } = require("express-validator");
 const regexObject = require("../utils/regex/regex");
 const { comparePassword } = require("../utils/helper/bcrypt");
-const userModel = require("../model/userModel");
+const userModel = require("../model/userModel/userModel");
 
-// sign in middleware
+//user sign in middleware
 async function signInMiddleware(req, res, next) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

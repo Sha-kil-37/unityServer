@@ -7,7 +7,7 @@ const userSignUpValidator = [
     min: 6,
   }),
 ];
-
+// user signIn validator
 const userSignInValidator = [
   query("email").isEmail().withMessage("Please provide a valid email"),
   query("password")

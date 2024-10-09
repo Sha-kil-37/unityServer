@@ -1,12 +1,26 @@
+// .env
+require("dotenv").config();
+// express
 const express = require("express");
-const { userSignUp, userSignIn } = require("../controllers/userController");
+// express router
+const userRouter = express.Router();
+// express-validator
 const {
   userSignUpValidator,
   userSignInValidator,
 } = require("../utils/validator/authValidator");
+// user signIn middleware
 const signInMiddleware = require("../middleware/signInMiddleware");
-const userRouter = express.Router();
-//
+// token verify middleware
+const userTokenVerify = require("../middleware/userTokenVerify");
+// multer
+const userProfileUploadMulter = require("../utils/Multer/userProfileUploadMulter");
+// user controllers
+const {
+  userSignUp,
+  userSignIn,
+  userProfileUpload,
+} = require("../controllers/userController");
 
 // user signup route
 userRouter.post("/userSignUp", userSignUpValidator, userSignUp);
@@ -17,6 +31,13 @@ userRouter.get(
   userSignInValidator,
   signInMiddleware,
   userSignIn
+);
+// user profile upload
+userRouter.post(
+  "/userProfileUpload",
+  userTokenVerify,
+  userProfileUploadMulter.single("userProfile"),
+  userProfileUpload
 );
 
 //
